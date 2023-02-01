@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Consulta {
+  id              Int       @id @default(autoincrement())
+  title           String
+  enfermedadAct   String?
+  antecedente     String?
+  examenfisico    String
+  diagnostico     String
+  fecha           DateTime
+  responsable     User?     @relation(fields: [responsableId], references: [id])
+  responsableId   String?
+  medicamentoAd   String?
+  tratamientoMand String?
+  comentarios     String?
+  modalidad       String
+  cobro           String
+  published       Boolean   @default(false)
+  paciente        Paciente? @relation(fields: [pacienteId], references: [id])
+  pacienteId      String?
+}
+
+model Paciente {
+  id        String     @id @default(cuid())
+  name      String
+  cedula    String
+  genero    String
+  fechaN    DateTime
+  telefono  String
+  dirrecion String
+  familiar  String
+  consultas Consulta[]
+  archivos  String[]
+}
+
+model User {
+  id       String     @id @default(cuid())
+  usuario  String     @unique
+  password String
+  isAdmin  Boolean    @default(false)
+  Consulta Consulta[]
+}
