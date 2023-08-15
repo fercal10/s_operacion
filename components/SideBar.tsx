@@ -12,13 +12,12 @@ function SideBar({ }) {
   return (
     <div className="flex flex-col w-full h-16 sm:h-full sm:w-56 bg-gray-200 border-r  relative">
 
-      <div className="  flex sm:flex-col items-center sm:mt-6 my-auto ml-4 ">
+      <div className="  flex sm:flex-col items-center sm:mt-6 my-auto ml-4  py-3">
         <div className=" absolute w-0 sm:hidden " onClick={() => setopen(!open)}>
           <svg height="30" viewBox="0 0 21 21" width="30" xmlns="http://www.w3.org/2000/svg"><g fill="none" fillRule="evenodd" stroke="currentColor" strokeLinecap="round"><path d="m4.5 6.5h12" /><path d="m4.498 10.5h11.997" /><path d="m4.5 14.5h11.995" /></g></svg>
         </div>
-        <img className="  mx-auto  sm:p-0 w-24 h-12 sm:w-40 sm:h-20    " src="/Logo-Dr.Plus.png" alt="Logo" />
-        <h4 className="hidden sm:block mx-2 mt-2 font-medium text-gray-800  hover:underline">Usuario</h4>
-        <p className="hidden sm:block mx-2 mt-1 text-sm font-medium text-gray-600  hover:underline">Tipo</p>
+        <img className="  mx-auto  sm:p-0 w-24 h-12 sm:w-40 sm:h-20    " src="/favicon.ico" alt="Logo" />
+
       </div>
 
       <div className={`${open ? " absolute  z-10 w-full top-12" : "hidden"} sm:static sm:flex flex-col justify-between  font-extrabold  flex-1 mt-6   `}>

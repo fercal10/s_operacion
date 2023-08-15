@@ -13,7 +13,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         }}
       >
         <Head >
-          <title>Dr.Plus </title>
+          <title>Dr.mas</title>
           <link rel="icon" href="/Logo-Dr.Plus.png" />
         </Head>
         <Component {...pageProps} />

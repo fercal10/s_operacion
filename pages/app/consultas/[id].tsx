@@ -4,38 +4,34 @@ import { TConsultas } from '@lib/constants';
 import prisma from '@lib/prisma';
 import { Console } from 'console';
 import { GetServerSideProps } from 'next';
+import dynamic from 'next/dynamic';
 import React from 'react'
+
+const DetalleConsulta = dynamic(() =>
+    import('@components/DetalleConsulta'), { ssr: false }
+)
 
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const inde: string = params?.id?.toString() ?? "";
 
-    const consulta = await prisma.consulta.findMany({ where: { id: parseInt(inde) }, include: { paciente: true } })
+    const consulta = await prisma.consulta.findUnique({ where: { id: parseInt(inde) }, include: { paciente: true ,responsable:true} })
 
     return {
         props: { consulta: JSON.parse(JSON.stringify(consulta)) },
 
     };
 };
+
 type Props = {
     consulta: TConsultas
 }
 
 const Consulta = ({ consulta }: Props) => {
-    console.log(consulta)
     return (
         <Layout>
-            <div className='w-full h-screen grid grid-cols-6 '>
-                <div className='col-span-1'>
-                    <SideBar />
-                </div>
-                <div className=' col-span-5 bg-white'>
-                    <div className="overflow-hidden bg-cyan-50 overflow-y-auto border w-full border-gray-100 rounded  shadow-2xl">
+            <DetalleConsulta consulta={consulta} />
 
-                        {/* <DetallePaciente paciente={paciente} /> */}
-                    </div>
-                </div>
-            </div>
         </Layout >
     )
 }

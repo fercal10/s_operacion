@@ -1,12 +1,13 @@
-import { TPaciente } from '@lib/constants'
+import { TConsultas, TPaciente } from '@lib/constants'
 import { Document, Image, Page, StyleSheet, Text, View } from '@react-pdf/renderer'
 import React, { useState } from 'react'
 
 type Props = {
+    consulta: TConsultas,
     paciente: TPaciente
 }
 
-const PacientePdf = ({ paciente }: Props) => {
+const PacientePdf = ({ consulta, paciente }: Props) => {
 
     const nacimiento = new Date(paciente.fechaN);
     const hoy = new Date();
@@ -27,7 +28,7 @@ const PacientePdf = ({ paciente }: Props) => {
         <Document>
             <Page size='A4' style={styles.page} >
                 <View style={styles.encabezado}>
-                    <Image src='/Logo-Dr.Plus.png' fixed style={{ width: "80px", height: "70px", margin: 5 }} />
+                    <Image src='/favicon.ico' fixed style={{ width: "80px", height: "70px", margin: 5 }} />
                     <View style={{ border: 1, borderColor: 'black', display: "flex", flexDirection: "row", justifyContent: 'space-around', alignItems: 'stretch' }} >
 
                         <View style={styles.col}>
@@ -72,38 +73,31 @@ const PacientePdf = ({ paciente }: Props) => {
 
                 </View>
                 <View style={{ border: 1, width: 500, marginHorizontal: 'auto', marginVertical: 10, }}>
-                    <Text style={{ fontSize: 13, textAlign: 'left', padding: 3, paddingVertical: 8 }}>MOTIVO DE CONSULTA:   dolor al orinar</Text>
+                    <Text style={{ fontSize: 13, textAlign: 'left', padding: 3, paddingVertical: 8 }}>MOTIVO DE CONSULTA:  {consulta.title}</Text>
                 </View>
                 <View style={{ border: 1, width: 500, marginHorizontal: 'auto', marginVertical: 10, }}>
-                    <Text style={styles.textoPeque}>Enfermedad Actual. Paciente femenina, natural y procedente de la localidad, con antecedentes conocidos de hipertensión arterial, quien refiere inicio de enfermedad actual, hace  7 días aproximadamente cuando comienza a presentar, disuria, hematuria, motivo por el cual se solicita urocultivo donde se aísla germen y se decid.</Text>
+                    <Text style={styles.textoPeque}>Enfermedad Actual : {consulta.enfermedadAct}</Text>
                 </View>
                 <View style={{ border: 1, width: 500, marginHorizontal: 'auto', marginVertical: 10, }}>
-                    <Text style={styles.textoPeque}> Antecedentes personales de relevancia:   NO alérgico, PATOLOGIAS DE BASE; Hipertensión Arterial ESQUEMA DE INMUNIZACION COMPLETO PARA SARS- COV2, </Text>
+                    <Text style={styles.textoPeque}> Antecedentes personales de relevancia:  {consulta.antecedente} </Text>
                 </View>
                 <View style={{ border: 1, width: 500, marginHorizontal: 'auto', marginVertical: 10, }}>
-                    <Text style={styles.textoPeque}> Examen físico. FC:    80    FR:   20         T/A:  120/70      SPO%:        99%                           Temp: 37”
-                        PIEL BLANCA NORMOCOLOREADA, TURGOR Y ELASCTICIDAD ACORDE A LA EDAD, LLENADO CAPILAR 3 SEG.
-                        C/P TORAX SIMETRICO. NORMOEXPANSIBLE, NORMO ELASTICO, RUIDOS RESPIRATORIOS PRESENTES NO SE AUSCULTAN AGREADOS. RUIDOS CARDIACOS RITMICOS NORMOFONETICOS SIN SOPLO.
-                        ABDOMEN PLANO RUIDOS HIDROAEREOS PRESENTES, BLANDO DEPRIMIBLE NO DOLOROSO, NO VISCEROMEGALIA.  Puntos pieloureterales no dolorosos
-                        RESTO DEL EXAMEN SIN ALTERACIONES.
+                    <Text style={styles.textoPeque}> Examen físico: {consulta.examenfisico}
                     </Text>
                 </View>
                 <View style={{ border: 1, width: 500, marginHorizontal: 'auto', marginVertical: 10, }}>
-                    <Text style={styles.textoPeque}> Diagnostico:  Infección del tracto urinario germen aislado E. coli  </Text>
+                    <Text style={styles.textoPeque}> Diagnostico:  {consulta.diagnostico}  </Text>
                 </View>
                 <View style={{ border: 1, width: 500, marginHorizontal: 'auto', marginVertical: 10, }}>
-                    <Text style={styles.textoPeque}> MEDICAMENTOS ADMINISTRADOS EN CASA: </Text>
+                    <Text style={styles.textoPeque}> MEDICAMENTOS ADMINISTRADOS :{consulta.medicamentoAd} </Text>
                 </View>
                 <View style={{ border: 1, width: 500, marginHorizontal: 'auto', marginVertical: 10, }}>
                     <Text style={styles.textoPeque}> TRATAMIENTO INDICADO:
-                        Longacef 400 mg
-                        Macrodantina 100mg
-                        Genurin 200mg
-                        Bargonil 2%
+                        {consulta.tratamientoMand}
                     </Text>
                 </View>
                 <View style={{ border: 1, width: 500, marginHorizontal: 'auto', marginVertical: 10, }}>
-                    <Text style={styles.textoPeque}> COMENTARIO:  SE SOLICITARON LABORATORIOS CONTROL
+                    <Text style={styles.textoPeque}> COMENTARIO: {consulta.comentarios}
                     </Text>
                 </View>
             </Page>

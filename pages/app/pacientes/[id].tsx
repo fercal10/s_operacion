@@ -34,22 +34,9 @@ const Usuario: React.FC<Props> = ({ paciente }) => {
     return (
         <Layout>
 
-            < div className='flex flex-auto text-xs md:text-base  flex-col sm:flex-row ' >
-                <div className='flex min-h-min'>
-                    <SideBar />
-                </div>
-                <div className=' flex-auto bg-white'>
 
-                    <div className=" bg-cyan-50 overflow-x-auto border border-gray-100 rounded  shadow-2xl">
+            < DetallePaciente paciente={paciente} />
 
-
-                        < DetallePaciente paciente={paciente} />
-
-                    </div>
-                </div>
-
-
-            </div >
         </Layout >
     )
 }

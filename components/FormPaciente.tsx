@@ -1,9 +1,11 @@
 import { TPaciente } from '@lib/constants';
 import React, { Dispatch, FormEvent, SetStateAction, useState } from 'react'
+import { KeyedMutator } from 'swr';
 import InputC from './InputC'
 
 type Props = {
-    setOpen: Dispatch<SetStateAction<boolean>>;
+    setOpen: Dispatch<SetStateAction<boolean>>,
+    act: KeyedMutator<TPaciente[]>
 }
 const initForm = {
     name: '',
@@ -16,18 +18,19 @@ const initForm = {
     consultas: [],
 }
 
-const FormPaciente = ({ setOpen }: Props) => {
+const FormPaciente = ({ setOpen, act }: Props) => {
     const [form, setForm] = useState(initForm);
     const handlerChagen = (e: React.ChangeEvent<HTMLInputElement>): void => { setForm({ ...form, [e.target.name]: e.target.value }); }
-    const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
+    const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const paciente: TPaciente = { ...form, fechaN: new Date(form.fechaN) };
+        const paciente = { ...form, fechaN: new Date(form.fechaN) };
         setForm(initForm);
 
-        const res = fetch("/api/pacientes", {
+        const res = await fetch("/api/pacientes", {
             method: "POST", headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(paciente)
         });
+        act();
         setOpen(false)
 
     }

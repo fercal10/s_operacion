@@ -73,6 +73,9 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
       break;
     case "DELETE":
       try {
+         const pacientes = await prisma.consulta.delete({
+           where: { id: req.body.id },
+         });
       } catch (error) {}
 
     default:

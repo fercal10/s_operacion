@@ -9,6 +9,6 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     res.status(200).json({ success: true });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: { message: "Authentication failed." } });
+    res.status(400).json({ error: err });
   }
 }

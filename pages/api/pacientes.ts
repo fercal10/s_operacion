@@ -52,7 +52,13 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
       }
       break;
     case "DELETE":
+      console.log(req.body);
       try {
+        const pacientes = await prisma.paciente.delete({
+          where: { id: req.body.id },
+        });
+
+        res.status(200).json({ success: true });
       } catch (error) {}
 
     default:
